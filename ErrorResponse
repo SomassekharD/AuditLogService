@@ -1,0 +1,40 @@
+package com.exception;
+
+import java.util.Date;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class ErrorResponse {
+
+	private Date date;
+	private int errorCode;
+	private String message;
+
+	public int getErrorCode() {
+		return errorCode;
+	}
+
+	public void setErrorCode(int errorCode) {
+		this.errorCode = errorCode;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public Date getDate() {
+		if (date == null) {
+			this.date = new Date();
+		}
+		return date;
+	}
+
+	public void setDate(Date date) {
+		this.date = date;
+	}
+}
