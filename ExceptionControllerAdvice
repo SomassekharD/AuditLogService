@@ -1,0 +1,35 @@
+package com.exception;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+@ControllerAdvice
+public class ExceptionControllerAdvice {
+
+	@Autowired
+	private ErrorResponse errorResponse;
+
+	@ExceptionHandler(TransactionException.class)
+	public ResponseEntity<ErrorResponse> transactionExceptionHandler(final Exception exception) {
+		errorResponse.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		errorResponse.setMessage(exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.OK);
+	}
+
+	@ExceptionHandler(ValidationException.class)
+	public ResponseEntity<ErrorResponse> validationExceptionHandler(final Exception exception) {
+		errorResponse.setErrorCode(HttpStatus.NOT_ACCEPTABLE.value());
+		errorResponse.setMessage(exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.OK);
+	}
+
+	@ExceptionHandler(Exception.class)
+	public ResponseEntity<ErrorResponse> exceptionHandler(final Exception exception) {
+		errorResponse.setErrorCode(HttpStatus.INTERNAL_SERVER_ERROR.value());
+		errorResponse.setMessage(exception.getMessage());
+		return new ResponseEntity<ErrorResponse>(errorResponse, HttpStatus.OK);
+	}
+}
