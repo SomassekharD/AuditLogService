@@ -1,0 +1,8 @@
+package com.service;
+
+import com.exception.RCAVException;
+
+public interface LoadService {
+
+	public void loadData(final String strRelease, final String strLevel) throws RCAVException;
+}
