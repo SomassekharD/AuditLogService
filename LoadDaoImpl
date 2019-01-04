@@ -1,0 +1,48 @@
+package com.dao;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.dao.DataAccessException;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import com.exception.TransactionException;
+
+@Repository
+public class LoadDaoImpl implements LoadDao {
+	private static final Logger LOGGER = LoggerFactory.getLogger(LoadDaoImpl.class);
+
+	@Autowired
+	private JdbcTemplate template;
+
+	@Value("${test.deleteQuery}")
+	private String deleteQuery;
+
+	@Value("${test.insertQuery}")
+	private String insertQuery;
+
+	@Override
+	public void deleteData() throws TransactionException {
+		try {
+			int deleteCount = template.update(deleteQuery);
+			LOGGER.info("DeleteCount Records:" + deleteCount);
+		} catch (final DataAccessException exc) {
+			throw new TransactionException(exc.getMessage());
+		}
+	}
+
+	@Override
+	public void insertData(final String strRelease, final String strLevel) throws TransactionException {
+		int release = Integer.parseInt(strRelease);  // Converting to Integer
+		int level = Integer.parseInt(strLevel);
+		try {
+			int insertCount = template.update(insertQuery, release, level);
+			LOGGER.info("Inserted Records:" + insertCount);
+		} catch (final DataAccessException exc) {
+			throw new TransactionException(exc.getMessage());
+		}
+	}
+
+}
