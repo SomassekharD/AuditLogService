@@ -1,0 +1,21 @@
+package com.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import com.dao.LoadDao;
+import com.exception.RCAVException;
+
+@Service
+public class LoadServiceImpl implements LoadService {
+
+	@Autowired
+	private Loadao loadDao;
+
+	@Override
+	@Transactional(readOnly = false, rollbackFor = Exception.class)
+	public void loadData(final String strRelease, final String strLevel) throws RCAVException {
+		loadDao.deleteData();
+		loadDao.insertData(strRelease, strLevel);
+	}
+}
