@@ -1,0 +1,10 @@
+package com.exception;
+
+public class RCAVException extends Exception {
+
+	private static final long serialVersionUID = 1L;
+
+	public RCAVException(final String errorMessage) {
+		super(errorMessage);
+	}
+}
