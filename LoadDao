@@ -1,0 +1,11 @@
+package com.dao;
+
+import com.exception.RCAVException;
+
+public interface LoadDao {
+
+	public void deleteQuery() throws RCAVException;
+	
+	public void insertQuery(final String release , final String level) throws RCAVException;
+
+}
