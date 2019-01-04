@@ -1,4 +1,4 @@
-package com.rtct.autoval.service;
+package com.service;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -17,7 +17,7 @@ public class AuditLogService {
 
 	private static final Logger LOGGER = LoggerFactory.getLogger(AuditLogService.class);
 
-	@Pointcut("execution(* com.rtct.autoval.dao..*.*(..))")
+	@Pointcut("execution(* com.dao..*.*(..))")
 	public void methodPointcut() {
 	}
 
