@@ -1,0 +1,15 @@
+test:
+  deleteQuery: "DELETE FROM tableName"
+  insertQuery: "INSERT INTO tableName (eid, name)
+    SELECT DISTINCT  x.eid, x.valname
+    FROM (SELECT eid, vx.empname
+            FROM(SELECT MAX(i.cycle) cycle, substr(emp_seq_nbr,13,instr(substr(emp_seq_nbr,13,length(emp_seq_nbr) ),'-',1,1) - 1) eidminus_cycle,                        
+                    WHERE
+                           i.rslt IN (9,2)
+                        AND   i.release = ?
+                        AND   i.level_ = ?
+                        AND   i.empID NOT IN (1111,1113,1114,1115)
+                        AND   v.automated = 1
+                    GROUP BY
+                        m.eid,m.emp_seq_nbr, substr(m.emp_seq_nbr,1,4)
+                JOIN table1 vx ON vx.valid = bp.valid) x"
